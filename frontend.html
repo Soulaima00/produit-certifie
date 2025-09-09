@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ProduitCertifié • dApp</title>
+  <style>
+    :root{--bg:#0b0f17;--card:#121826;--muted:#9aa4b2;--text:#e5e7eb;--brand:#5eead4;--accent:#7c3aed;--danger:#ef4444;}
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#0b0f17,#0f172a);
+    color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+    .container{max-width:980px;margin:32px auto;padding:0 16px}
+    .hero{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+    .title{font-size:24px;font-weight:800;letter-spacing:.2px;display:flex;align-items:center;gap:10px}
+    .badge{background:linear-gradient(135deg,var(--brand),#22d3ee);width:14px;height:14px;border-radius:4px;display:inline-block}
+    .card{background:rgba(18,24,38,.9);border:1px solid #1f2937;border-radius:16px;padding:18px;backdrop-filter:blur(6px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+    label{display:block;font-size:13px;color:var(--muted);margin:10px 0 6px}
+    input,textarea{width:100%;padding:10px 12px;border-radius:12px;border:1px solid #293244;background:#0e1422;color:var(--text);outline:none}
+    textarea{min-height:80px;resize:vertical}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    button{cursor:pointer;border:0;border-radius:12px;padding:10px 14px;font-weight:700}
+    .btn{background:linear-gradient(135deg,#22d3ee,var(--brand));color:#05202b}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .btn-secondary{background:#1f2937;color:#cbd5e1}
+    .meta{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:13px;flex-wrap:wrap}
+    .pill{padding:6px 10px;border-radius:999px;background:#0e1422;border:1px solid #22304a;color:#9fb0c7}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{padding:10px;border-bottom:1px solid #1f2937;text-align:left;font-size:14px}
+    th{color:#aab4c3;font-weight:700}
+    .toast{position:fixed;right:16px;bottom:16px;display:flex;flex-direction:column;gap:10px;z-index:50}
+    .toast .item{background:#0e1a2b;border:1px solid #1e293b;color:#d1fae5;padding:12px 14px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+    .error{color:#fecaca;border-color:#7f1d1d;background:#1b0e10}
+    .ok{color:#bbf7d0;border-color:#14532d;background:#0f1b16}
+    .muted{color:var(--muted)}
+    .code{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background:#0e1422; border:1px solid #22304a; padding:2px 6px; border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <div class="title"><span class="badge"></span> ProduitCertifié • Mini-dApp</div>
+      <div class="row">
+        <button id="connect" class="btn">Connecter MetaMask</button>
+        <button id="refresh" class="btn-secondary">Actualiser</button>
+      </div>
+    </div>
+
+    <div class="meta">
+      <span class="pill" id="net">Réseau: <span class="muted">—</span></span>
+      <span class="pill" id="acc">Compte: <span class="muted">—</span></span>
+      <span class="pill">Contrat: <span id="addr" class="code">—</span></span>
+    </div>
+
+    <div class="grid" style="margin-top:16px">
+      <div class="card">
+        <h3 style="margin:0 0 8px">Ajouter un produit</h3>
+        <div class="row">
+          <div style="flex:1 1 220px">
+            <label>Nom</label>
+            <input id="nom" placeholder="ex. PC Asus" />
+          </div>
+          <div style="flex:1 1 220px">
+            <label>Catégorie</label>
+            <input id="cat" placeholder="ex. Informatique" />
+          </div>
+        </div>
+        <label>Description</label>
+        <textarea id="desc" placeholder="ex. i7 • 16Go • 512Go SSD"></textarea>
+        <div class="row" style="margin-top:10px">
+          <button id="ajouter" class="btn">Ajouter</button>
+          <span class="muted" id="hint"></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 8px">Consulter</h3>
+        <div class="row">
+          <div style="flex:1 1 160px">
+            <label>ID</label>
+            <input id="pid" type="number" min="1" placeholder="ex. 1" />
+          </div>
+          <div class="row" style="align-items:flex-end">
+            <button id="get" class="btn-secondary">Obtenir</button>
+          </div>
+        </div>
+        <pre id="one" style="margin-top:10px" class="muted">—</pre>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3 style="margin:0 0 8px">Liste des produits</h3>
+      <div class="muted" id="count">Total: —</div>
+      <table>
+        <thead><tr><th>ID</th><th>Nom</th><th>Catégorie</th><th>Description</th><th>Arrivée</th></tr></thead>
+        <tbody id="tbody"><tr><td colspan="5" class="muted">—</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module">
+    import { BrowserProvider, Contract } from 'https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.min.js';
+
+    // ⚠️ بدّل العنوان هذا بعنوان العقد عندك
+    const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+
+    // عقدنا: عندنا compteurProduits() public + ajouterProduit + getProduit
+    const ABI = [
+      "function compteurProduits() view returns (uint256)",
+      "function ajouterProduit(string,string,string) public",
+      "function getProduit(uint256) view returns (uint256,string,string,string,uint256)",
+      "event ProduitAjoute(uint id, string nom, string categorie, string description, uint dateArrivee)"
+    ];
+
+    const $ = sel => document.querySelector(sel);
+    const toast = (msg, ok=true) => {
+      const t = document.createElement('div');
+      t.className = 'item ' + (ok ? 'ok' : 'error');
+      t.textContent = msg;
+      $('#toast').appendChild(t);
+      setTimeout(()=> t.remove(), 3500);
+    };
+
+    let provider, signer, contract;
+
+    async function connect() {
+      if (!window.ethereum) { toast("Installez MetaMask", false); return; }
+      provider = new BrowserProvider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      signer = await provider.getSigner();
+      contract = new Contract(CONTRACT_ADDRESS, ABI, signer);
+
+      // UI status
+      const net = await provider.getNetwork();
+      $('#net').innerHTML = `Réseau: <span class="code">${net.name ?? 'local'} (#${Number(net.chainId)})</span>`;
+      $('#acc').innerHTML = `Compte: <span class="code">${await signer.getAddress()}</span>`;
+      $('#addr').textContent = CONTRACT_ADDRESS;
+
+      // Events live (facultatif)
+      try {
+        contract.on("ProduitAjoute", (id, nom) => {
+          toast(`Produit #${Number(id)} ajouté: ${nom}`);
+          loadAll();
+        });
+      } catch {}
+
+      await loadAll();
+    }
+
+    async function add() {
+      const nom = $('#nom').value.trim();
+      const cat = $('#cat').value.trim();
+      const desc = $('#desc').value.trim();
+      if (!nom || !cat || !desc) { toast("Remplissez tous les champs", false); return; }
+      $('#ajouter').disabled = true;
+      try {
+        const tx = await contract.ajouterProduit(nom, cat, desc);
+        $('#hint').textContent = "Envoi de la transaction…";
+        await tx.wait();
+        $('#hint').textContent = "";
+        $('#nom').value = $('#cat').value = $('#desc').value = "";
+        toast("Produit ajouté avec succès ✅", true);
+        await loadAll();
+      } catch (e) {
+        console.error(e); toast("Échec de l'ajout", false);
+      } finally { $('#ajouter').disabled = false; }
+    }
+
+    async function getOne() {
+      const id = Number($('#pid').value);
+      if (!id) { $('#one').textContent = "—"; return; }
+      try {
+        const p = await contract.getProduit(id);
+        const date = new Date(Number(p[4]) * 1000).toLocaleString();
+        $('#one').textContent = JSON.stringify({
+          id: Number(p[0]), nom: p[1], categorie: p[2], description: p[3], dateArrivee: date
+        }, null, 2);
+      } catch (e) {
+        $('#one').textContent = "Introuvable / ID invalide";
+      }
+    }
+
+    async function loadAll() {
+      try {
+        const total = Number(await contract.compteurProduits());
+        $('#count').textContent = `Total: ${total}`;
+        const tbody = $('#tbody'); tbody.innerHTML = '';
+        if (total === 0) { tbody.innerHTML = '<tr><td colspan="5" class="muted">Aucun produit</td></tr>'; return; }
+        for (let i=1; i<=total; i++) {
+          const p = await contract.getProduit(i);
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${Number(p[0])}</td>
+            <td>${p[1]}</td><td>${p[2]}</td><td>${p[3]}</td>
+            <td>${new Date(Number(p[4])*1000).toLocaleString()}</td>`;
+          tbody.appendChild(tr);
+        }
+      } catch (e) {
+        console.error(e);
+        toast("Erreur lors du chargement de la liste", false);
+      }
+    }
+
+    // Listeners
+    $('#connect').addEventListener('click', connect);
+    $('#refresh').addEventListener('click', loadAll);
+    $('#ajouter').addEventListener('click', add);
+    $('#get').addEventListener('click', getOne);
+
+    // Auto-connect si comptes مصرح بهم
+    if (window.ethereum) {
+      window.ethereum.on?.('accountsChanged', () => connect());
+      window.ethereum.on?.('chainChanged', () => location.reload());
+    }
+  </script>
+</body>
+</html>
