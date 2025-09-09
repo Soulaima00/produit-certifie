@@ -55,10 +55,3 @@ git clone https://github.com/<votre-username>/produit-certifie.git
 cd produit-certifie
 
 
-### 2. Initialiser le projet Node.js
-```bash
-npm init -y
-
-
-
-
