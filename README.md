@@ -50,8 +50,10 @@ Chaque produit est enregistré sur la blockchain avec :
 ##  Installation et Exécution
 
 ### 1. Cloner le projet
-```bash
+
 git clone https://github.com/<votre-username>/produit-certifie.git
 cd produit-certifie
 
 
+### 2. Initialiser le projet Node.js
+npm init -y
