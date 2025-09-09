@@ -71,3 +71,37 @@ npx hardhat
 ```bash
 npm install --save-dev @nomicfoundation/hardhat-toolbox ethers
 ```
+### 6. Compiler le contrat
+```bash
+npx hardhat compile
+```
+### 7. Lancer un nœud local (blockchain locale)
+```bash
+npx hardhat node
+```
+👉 Garde cette console ouverte (c’est ta blockchain locale).
+### 8. Déployer le contrat
+Dans une nouvelle console, exécuter :
+```bash
+npx hardhat run scripts/deploy.js --network localhost
+```
+
+✅ Contrat déployé à l’adresse: 0x5F...................
+
+---
+
+## 🦊 Configuration MetaMask
+
+1. **Ajouter un nouveau réseau :**
+
+   -Nom : Hardhat Local
+
+   -RPC URL : http://127.0.0.1:8545
+
+   -Chain ID : 31337
+
+   -Symbole : ETH
+
+2.**Importer un compte avec une clé privée générée par Hardhat (npx hardhat node affiche les comptes + clés privées).**
+
+3.**Vérifier que tu as bien 10,000 ETH (fictifs) sur ce compte.**
