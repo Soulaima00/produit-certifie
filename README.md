@@ -105,3 +105,16 @@ npx hardhat run scripts/deploy.js --network localhost
 2.**Importer un compte avec une clé privée générée par Hardhat (npx hardhat node affiche les comptes + clés privées).**
 
 3.**Vérifier que tu as bien 10,000 ETH (fictifs) sur ce compte.**
+
+
+## 💻 Frontend
+
+1.**Ouvrir frontend.html dans le navigateur.**
+
+2.**Cliquer sur Connecter MetaMask.**
+
+3.**Ajouter un produit → signer la transaction dans MetaMask.**
+
+4.**Consulter un produit par son ID.**
+
+5.**Voir la liste des produits mise à jour en bas de la page.**
