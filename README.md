@@ -1,6 +1,6 @@
 # ProduitCertifié • Mini-dApp Blockchain
 
-## 📌 Contexte
+##  Contexte
 Ce projet est un **mini-projet Blockchain** qui permet de **certifier l’arrivée des produits dans une usine**.  
 Chaque produit est enregistré sur la blockchain avec :  
 - un **ID auto-incrémenté**  
@@ -11,14 +11,14 @@ Chaque produit est enregistré sur la blockchain avec :
 
 ---
 
-## 🎯 Objectifs
+##  Objectifs
 - Garantir l’**authenticité** et la **traçabilité** des produits.  
 - Pouvoir consulter à tout moment si un produit est bien enregistré.  
 - Montrer un exemple complet d’application décentralisée (**dApp**) avec **Smart Contract + Frontend + MetaMask**.
 
 ---
 
-## 🛠️ Technologies et Outils
+##  Technologies et Outils
 - [Solidity](https://soliditylang.org/) → pour écrire le contrat intelligent.  
 - [Hardhat](https://hardhat.org/) → framework pour compiler, tester et déployer.  
 - [Node.js & NPM](https://nodejs.org/) → environnement JavaScript et gestion des dépendances.  
@@ -29,7 +29,7 @@ Chaque produit est enregistré sur la blockchain avec :
 
 ---
 
-## 📐 Conception
+##  Conception
 1. **Smart Contract (`contracts/ProduitCertifie.sol`)**  
    - `ajouterProduit(string nom, string categorie, string description)` → ajoute un produit.  
    - `getProduit(uint id)` → récupère les infos d’un produit.  
@@ -47,9 +47,18 @@ Chaque produit est enregistré sur la blockchain avec :
 
 ---
 
-## 🚀 Installation et Exécution
+##  Installation et Exécution
 
 ### 1. Cloner le projet
 ```bash
 git clone https://github.com/<votre-username>/produit-certifie.git
 cd produit-certifie
+
+
+### 2. Initialiser le projet Node.js
+```bash
+npm init -y
+
+
+
+
