@@ -50,10 +50,24 @@ Chaque produit est enregistré sur la blockchain avec :
 ##  Installation et Exécution
 
 ### 1. Cloner le projet
-
+```bash
 git clone https://github.com/<votre-username>/produit-certifie.git
 cd produit-certifie
-
-
+```
 ### 2. Initialiser le projet Node.js
-npm init -y
+```bash
+npm install
+```
+### 3. Installer Hardhat
+```bash
+npm install --save-dev hardhat@2.22.10
+```
+### 4. Créer un projet Hardhat
+```bash
+npx hardhat
+```
+👉 Choisir : Create a JavaScript project.
+### 5. Installer les dépendances utiles
+```bash
+npm install --save-dev @nomicfoundation/hardhat-toolbox ethers
+```
